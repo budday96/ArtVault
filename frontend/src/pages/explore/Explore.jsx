@@ -193,10 +193,11 @@ export default function Explore() {
       {/* LIST KARYA */}
       <div className="row mt-4">
         {karya.map((k) => {
-          const url =
-            k.foto_karya?.length > 0
-              ? `http://localhost:5000/uploads/karya/${k.foto_karya[0].nama_file}`
-              : noImage;
+          const cover = k.FotoKaryas?.find(f => f.is_cover === 1) || k.FotoKaryas?.[0];
+
+          const url = cover
+            ? `http://localhost:5000${cover.path_file}`
+            : noImage;
 
           return (
             <div className="col-md-3 mb-4" key={k.id_karya}>
@@ -214,17 +215,12 @@ export default function Explore() {
                   {k.kategori_karya?.nama_kategori}
                 </small>
 
-                {/* SCORE */}
                 <p className="mt-2 mb-1">
                   <small>Skor: {k.skor_nilai}</small>
                 </p>
 
-                {/* LIKE + DETAIL */}
                 <div className="d-flex justify-content-between mt-2">
-                  <Link
-                    to={`/karya/detail/${k.id_karya}`}
-                    className="btn btn-primary btn-sm"
-                  >
+                  <Link to={`/karya/detail/${k.id_karya}`} className="btn btn-primary btn-sm">
                     Detail
                   </Link>
 
@@ -232,19 +228,17 @@ export default function Explore() {
                     className="btn btn-light btn-sm"
                     onClick={() => toggleLike(k.id_karya)}
                   >
-                    {k.sudah_like ? (
-                      <FaHeart color="red" />
-                    ) : (
-                      <FaRegHeart />
-                    )}{" "}
+                    {k.sudah_like ? <FaHeart color="red" /> : <FaRegHeart />}{" "}
                     {k.jumlah_like}
                   </button>
                 </div>
+
               </div>
             </div>
           );
         })}
       </div>
+
 
       {/* LOAD MORE */}
       {halaman < totalHalaman && (

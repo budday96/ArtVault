@@ -89,7 +89,7 @@ export default function KaryaDetail() {
           foto.map((f) => (
             <div key={f.id_foto} className="col-md-3 col-6 mb-3">
               <img 
-                src={`http://localhost:5000/uploads/karya/${f.nama_file}`}
+                src={`http://localhost:5000/uploads/karya/${f.path_file}`}
                 alt="karya"
                 className="img-fluid rounded shadow"
               />
