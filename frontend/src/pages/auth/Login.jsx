@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axiosConfig";
+import "../../assets/css/auth.css";
 
 export default function Login() {
   const nav = useNavigate();
@@ -18,46 +19,62 @@ export default function Login() {
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("nama", res.data.user.nama_lengkap);
 
-      alert("Login berhasil!");
+      alert("Login berhasil");
       nav("/");
     } catch (err) {
-      alert(err.response?.data?.message || "Login gagal");
+      alert(err.response?.data?.message || "Login gagal. Periksa kembali data Anda.");
     }
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
-      <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "420px" }}>
-        <h3 className="text-center mb-4">Masuk ke ArtVault</h3>
+    <div className="auth-page-container">
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label>Email</label>
-            <input 
+      <div className="auth-box">
+
+        <h1 className="auth-title-medusa">Selamat Datang Kembali</h1>
+        <p className="auth-desc-medusa">
+          Masuk untuk melanjutkan dan menikmati layanan ArtVault.
+        </p>
+
+        <form onSubmit={handleSubmit} className="auth-form">
+
+          {/* EMAIL */}
+          <div className="auth-input-group">
+            <input
               type="email"
-              className="form-control"
-              placeholder="Masukkan email"
+              required
+              className="auth-input-medusa"
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
+            <label className="auth-input-label">Email</label>
           </div>
 
-          <div className="mb-3">
-            <label>Password</label>
-            <input 
+          {/* PASSWORD */}
+          <div className="auth-input-group">
+            <input
               type="password"
-              className="form-control"
-              placeholder="Masukkan password"
+              required
+              className="auth-input-medusa"
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
+            <label className="auth-input-label">Password</label>
           </div>
 
-          <button className="btn btn-primary w-100 mt-3">Login</button>
+          {/* BUTTON */}
+          <button className="auth-btn-medusa" type="submit">
+            Masuk
+          </button>
         </form>
 
-        <p className="text-center mt-3">
-          Belum punya akun? <a href="/register">Daftar</a>
+        <p className="auth-bottom-text-medusa">
+          Belum punya akun?{" "}
+          <a href="/register" className="auth-link-medusa">
+            Buat akun baru
+          </a>
         </p>
+
       </div>
+
     </div>
   );
 }

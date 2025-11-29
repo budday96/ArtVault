@@ -1,0 +1,229 @@
+/* Wrapper */
+.explore-store-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #222;
+}
+
+.explore-item-stars {
+  display: flex;
+  gap: 3px;
+  color: #FFA500; /* warna gold */
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+
+/* Filter Section */
+.explore-filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.explore-select {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 150px;
+}
+
+/* SEARCH INPUT — Bootstrap override */
+.explore-search-input.form-control {
+  padding: 12px 14px !important;              /* lebih empuk */
+  border: 1px solid #ccc !important;          /* cocok dengan dropdown */
+  border-radius: 8px !important;              /* sedikit lebih rounded */
+  font-size: 15px !important;
+  
+  flex: 2 !important;                          /* lebih lebar dari dropdown */
+  min-width: 260px !important;                 /* batas minimal kolom */
+  
+  background: #ffffff !important;
+  transition: border-color 0.2s ease, 
+              box-shadow 0.2s ease;
+}
+
+/* Hover seperti dropdown */
+.explore-search-input.form-control:hover {
+  border-color: #999 !important;
+  background-color: #fafafa !important;
+}
+
+/* Focus border & shadow premium (mengganti biru Bootstrap) */
+.explore-search-input.form-control:focus {
+  border-color: #6A5646 !important;           /* warna tema */
+  box-shadow: 0 0 0 3px rgba(106, 86, 70, 0.25) !important;
+  outline: none !important;
+}
+
+
+/* override khusus bootstrap form-select */
+.explore-select.form-select {
+  padding-right: 2.2rem !important;   /* geser arrow lebih ke kiri */
+  background-position: right 0.9rem center !important;
+  border-color: #ccc !important;      /* dark background */
+}
+
+.explore-select.form-select:focus {
+  border-color: #6A5646 !important;             /* warna focus */
+  box-shadow: 0 0 0 3px rgba(106, 86, 70, 0.25) !important; /* shadow saat focus */
+  outline: none !important;
+}
+
+
+.explore-select {
+  max-width: 180px;
+}
+
+/* Grid Products */
+.explore-grid-store {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* Card */
+.explore-item-card {
+  background: #fff;
+  border: 2px solid #e5e5e5fd;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.explore-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* Image */
+.explore-item-img-wrapper {
+  width: 100%;
+  padding-top: 75%; /* aspect ratio 4:3 — gambar responsive */
+  position: relative;
+  overflow: hidden;
+  background: #f9f9f9;
+}
+
+.explore-item-img-wrapper img.explore-item-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Body */
+.explore-item-body {
+  padding: 12px 14px;
+  flex-grow: 1;
+}
+
+.explore-item-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: #111;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.explore-item-category {
+  font-size: 13px;
+  color: #777;
+  margin: 0 0 8px;
+}
+
+.explore-item-score {
+  font-size: 14px;
+  color: #444;
+  margin: 0 0 12px;
+}
+
+/* Actions */
+.explore-item-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px 14px 14px;
+}
+
+
+/* DETAIL BUTTON — clean border + dark hover */
+.btn-shop {
+  padding: 8px 16px;
+  background: transparent;         
+  border: 1.8px solid #1f2937;    
+  color: #1f2937;                  
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.25s ease-in-out;
+}
+
+.btn-shop:hover {
+  background: #1f2937;             
+  color: white;                    
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
+.btn-like-store {
+  padding: 6px 12px;
+  background: #ffe6e6;           
+  border: 1px solid #ffb3b3;      
+  border-radius: 6px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #d40000;                
+  font-weight: 600;
+  transition: 0.25s ease-in-out;
+}
+
+.btn-like-store:hover {
+  background: #ff4d4d;           
+  border-color: #cc0000;
+  color: #fff;                    
+  transform: translateY(-2px);
+}
+
+
+/* Load More Button */
+.btn-load-more {
+  padding: 10px 26px;
+  background: #1f2937;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+
+.btn-load-more:hover {
+  background: #111827;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .explore-grid-store {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  .explore-filter-section {
+    flex-direction: column;
+  }
+}

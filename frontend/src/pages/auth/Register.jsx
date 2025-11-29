@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../api/axiosConfig";
+import "../../assets/css/auth.css";
 
 export default function Register() {
   const nav = useNavigate();
@@ -15,7 +16,7 @@ export default function Register() {
     e.preventDefault();
     try {
       await api.post("/auth/register", form);
-      alert("Registrasi berhasil! Silakan login.");
+      alert("Registrasi berhasil. Silakan masuk.");
       nav("/login");
     } catch (err) {
       alert(err.response?.data?.message || "Gagal registrasi");
@@ -23,59 +24,65 @@ export default function Register() {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
-      <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "420px" }}>
-        <h3 className="text-center mb-4">Daftar Akun Baru</h3>
+    <div className="auth-page-container">
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label>Nama Lengkap</label>
-            <input 
+      <div className="auth-box">
+
+        <h1 className="auth-title-medusa">Buat Akun Baru</h1>
+        <p className="auth-desc-medusa">
+          Bergabung dan jadilah bagian dari komunitas ArtVault.
+        </p>
+
+        <form onSubmit={handleSubmit} className="auth-form">
+
+          {/* NAMA LENGKAP */}
+          <div className="auth-input-group">
+            <input
               type="text"
-              className="form-control"
-              placeholder="Masukkan nama lengkap"
+              required
+              className="auth-input-medusa"
               onChange={(e) => setForm({ ...form, nama_lengkap: e.target.value })}
             />
+            <label className="auth-input-label">Nama Lengkap</label>
           </div>
 
-          <div className="mb-3">
-            <label>Username</label>
-            <input 
-              type="text"
-              className="form-control"
-              placeholder="Masukkan username"
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
-            />
-          </div>
-
-
-          <div className="mb-3">
-            <label>Email</label>
-            <input 
+          {/* EMAIL */}
+          <div className="auth-input-group">
+            <input
               type="email"
-              className="form-control"
-              placeholder="Masukkan email"
+              required
+              className="auth-input-medusa"
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
+            <label className="auth-input-label">Email</label>
           </div>
 
-          <div className="mb-3">
-            <label>Password</label>
-            <input 
+          {/* PASSWORD */}
+          <div className="auth-input-group">
+            <input
               type="password"
-              className="form-control"
-              placeholder="Masukkan password"
+              required
+              className="auth-input-medusa"
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
+            <label className="auth-input-label">Password</label>
           </div>
 
-          <button className="btn btn-success w-100 mt-3">Daftar</button>
+          {/* BUTTON */}
+          <button className="auth-btn-medusa" type="submit">
+            Daftar
+          </button>
         </form>
 
-        <p className="text-center mt-3">
-          Sudah punya akun? <a href="/login">Login</a>
+        <p className="auth-bottom-text-medusa">
+          Sudah punya akun?{" "}
+          <a href="/login" className="auth-link-medusa">
+            Masuk di sini
+          </a>
         </p>
+
       </div>
+
     </div>
   );
 }
