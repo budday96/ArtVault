@@ -2,6 +2,7 @@ const KaryaSeni = require('../models/KaryaSeni');
 const KategoriKarya = require('../models/KategoriKarya');
 const User = require('../models/User');
 const { Op } = require('sequelize');
+const FotoKarya = require('../models/FotoKarya');
 
 const kondisiToValue = {
   "Sangat Baik": 5,
@@ -99,7 +100,13 @@ module.exports = {
       const karya = await KaryaSeni.findByPk(id, {
         include: [
           { model: User, attributes: ['nama_lengkap', 'username'] },
-          { model: KategoriKarya, attributes: ['nama_kategori'] }
+          { model: KategoriKarya, attributes: ['nama_kategori'] },
+          {
+            model: FotoKarya,
+            attributes: ['id_foto', 'path_file', 'is_cover'],
+            separate: true,
+            order: [['is_cover', 'DESC'], ['id_foto', 'ASC']]
+          }
         ]
       });
 
@@ -111,6 +118,7 @@ module.exports = {
       res.status(500).json({ error: err.message });
     }
   },
+
 
 
     // ============ GET MY KARYA (USER SENDIRI) ============

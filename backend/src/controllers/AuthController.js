@@ -85,5 +85,28 @@ module.exports = {
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
-  }
+  },
+
+  updateProfile: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.user.id_user);
+      if (!user) return res.status(404).json({ message: "User tidak ditemukan" });
+
+      const { nama_lengkap, bio } = req.body;
+
+      if (nama_lengkap) user.nama_lengkap = nama_lengkap;
+      if (bio !== undefined) user.bio = bio;
+
+      await user.save();
+
+      return res.status(200).json({
+        message: "Profil berhasil diperbarui",
+        data: user
+      });
+
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
 };

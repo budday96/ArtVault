@@ -112,8 +112,22 @@ module.exports = {
       user.status_akun = "dibanned";
       await user.save();
 
+      // 🔥 ARSIPKAN SEMUA KARYA MILIK USER
+      await KaryaSeni.update(
+        { status_publikasi: "Arsip" },
+        { where: { id_user } }
+      );
+
+      // 🔔 NOTIFIKASI
+      await buatNotifikasi(
+        id_user,
+        "akun_dibanned",
+        "Akunmu telah dibanned",
+        "Akunmu telah dibanned oleh admin dan semua karyamu telah diarsipkan."
+      );
+
       res.status(200).json({
-        message: "User berhasil dibanned",
+        message: "User berhasil dibanned & seluruh karyanya diarsipkan",
         data: user
       });
 
@@ -136,6 +150,20 @@ module.exports = {
 
       user.status_akun = "aktif";
       await user.save();
+
+      // ♻️ KEMBALIKAN KARYA KE DRAFT (PERLU VERIFIKASI ULANG)
+      await KaryaSeni.update(
+        { status_publikasi: "Draft" },
+        { where: { id_user } }
+      );
+
+      // 🔔 NOTIFIKASI
+      await buatNotifikasi(
+        id_user,
+        "akun_diaktifkan",
+        "Akunmu telah diaktifkan kembali",
+        "Akunmu diaktifkan kembali. Karyamu telah dikembalikan ke Draft dan menunggu verifikasi admin."
+      );
 
       res.status(200).json({
         message: "User berhasil diaktifkan kembali",

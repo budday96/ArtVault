@@ -31,7 +31,6 @@ import AdminRoute from "./components/AdminRoute.jsx";
 // admin kategori
 import AdminKategori from "./pages/admin/AdminKategori.jsx";
 
-
 export default function App() {
   return (
     <BrowserRouter>
@@ -62,9 +61,8 @@ export default function App() {
           <Route path="/admin/karya" element={<AdminKarya />} />
           <Route path="/admin/user" element={<AdminUser />} />
           <Route path="/admin/verifikasi" element={<AdminVerifikasi />} />
-
+          <Route path="/admin/users" element={<AdminUser />} />
           <Route path="/admin/kategori" element={<AdminKategori />} />
-
         </Route>
       </Routes>
     </BrowserRouter>

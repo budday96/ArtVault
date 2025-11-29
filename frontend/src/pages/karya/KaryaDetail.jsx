@@ -53,7 +53,7 @@ export default function KaryaDetail() {
   const loadDetail = async () => {
     const res = await api.get(`/karya/${id}`);
     setKarya(res.data);
-    setFoto(res.data.foto_karya || []);
+    setFoto(res.data.FotoKaryas || []);
     setLiked(res.data.sudah_like);
     setJumlahLike(res.data.jumlah_like);
   };
@@ -85,22 +85,22 @@ export default function KaryaDetail() {
     <h3 className="karya-detail-title">{karya.judul_karya}</h3>
     <p className="karya-detail-category">{karya.kategori_karya?.nama_kategori}</p>
 
-
-    {/* FOTO GALLERY */}
-    <div className="row karya-detail-gallery mt-3">
-      {foto.length > 0 ? (
-        foto.map((f) => (
-          <div key={f.id_foto} className="col-md-3 col-6 mb-3">
-            <img
-              src={`http://localhost:5000/uploads/karya/${f.path_file}`}
-              className="img-fluid shadow-sm"
-            />
-          </div>
-        ))
-      ) : (
-        <p>Belum ada foto.</p>
-      )}
-    </div>
+      {/* Foto Gallery */}
+      <div className="row mt-4">
+        {foto.length > 0 ? (
+          foto.map((f) => (
+            <div key={f.id_foto} className="col-md-3 col-6 mb-3">
+              <img 
+                src={`http://localhost:5000/uploads/karya/${f.path_file}`}
+                alt="karya"
+                className="img-fluid rounded shadow"
+              />
+            </div>
+          ))
+        ) : (
+          <p>Belum ada foto diupload</p>
+        )}
+      </div>
 
     {/* INFO KARYA */}
     <div className="karya-detail-card shadow-sm">
@@ -119,10 +119,21 @@ export default function KaryaDetail() {
       </button>
     </div>
 
-    {/* KOMENTAR */}
-    <div className="karya-section-card shadow-sm">
 
-      <h5>Komentar ({komentar.length})</h5>
+      {/* Placeholder: Komentar + Penawaran akan diisi di modul berikut */}
+      <div className="card p-3 mt-4 shadow-sm">
+        <h5>Komentar</h5>
+        <p>Modul Komentar akan ditambahkan di tahap berikutnya.</p>
+      </div>
+
+      <div className="card p-3 mt-4 shadow-sm">
+        <h5>Penawaran (Bid)</h5>
+        <p>Modul Bid akan ditambahkan di tahap berikutnya.</p>
+      </div>
+
+      {/* KOMENTAR SECTION */}
+      <div className="card p-3 mt-4 shadow-sm">
+        <h5>Komentar ({komentar.length})</h5>
 
       <textarea
         className="form-control karya-comment-box mt-2"
@@ -198,25 +209,32 @@ export default function KaryaDetail() {
       )}
     </div>
 
-    {/* RIWAYAT PENAWARAN */}
-    <div className="card p-3 mt-4 shadow-sm">
-      <h5>Riwayat Penawaran</h5>
-      {penawaran.length === 0 ? (
-        <p className="text-muted">Belum ada penawaran</p>
-      ) : (
-        <ul className="list-group mt-3">
-          {penawaran.map((p) => (
-            <li key={p.id_penawaran} className="list-group-item bid-item d-flex justify-content-between">
-              <span>
-                <strong>Rp {Number(p.nilai_penawaran).toLocaleString()}</strong><br />
-                <small className="text-muted">oleh {p.user.nama_lengkap}</small>
-              </span>
-              <small className="text-muted">{new Date(p.dibuat_pada).toLocaleString()}</small>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+      {/* LIST PENAWARAN */}
+      <div className="card p-3 mt-4 shadow-sm">
+        <h5>Riwayat Penawaran</h5>
+
+        {penawaran.length === 0 ? (
+          <p className="text-muted">Belum ada penawaran</p>
+        ) : (
+          <ul className="list-group mt-3">
+            {penawaran.map((p, i) => (
+              <li key={p.id_penawaran} className="list-group-item d-flex justify-content-between">
+                <span>
+                  <strong>Rp {Number(p.nilai_penawaran).toLocaleString()}</strong>
+                  <br />
+                  <small className="text-muted">
+                    oleh {p.user.nama_lengkap}
+                  </small>
+                </span>
+
+                <span className="text-muted">
+                  {new Date(p.dibuat_pada).toLocaleString()}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
   </div>
 );

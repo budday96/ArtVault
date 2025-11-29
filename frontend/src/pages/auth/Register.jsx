@@ -46,6 +46,17 @@ export default function Register() {
             <label className="auth-input-label">Nama Lengkap</label>
           </div>
 
+          <div className="mb-3">
+            <label>Username</label>
+            <input 
+              type="text"
+              className="form-control"
+              placeholder="Masukkan username"
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
+            />
+          </div>
+
+
           {/* EMAIL */}
           <div className="auth-input-group">
             <input
