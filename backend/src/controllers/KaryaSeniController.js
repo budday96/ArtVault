@@ -207,6 +207,32 @@ module.exports = {
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
+  },
+
+  // ============ APPROVE KARYA (ADMIN) ============
+  approveKarya: async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const karya = await KaryaSeni.findByPk(id);
+    if (!karya) {
+      return res.status(404).json({ message: "Karya tidak ditemukan" });
+    }
+
+    // ubah status
+    karya.status_publikasi = "Publish";
+    karya.diupdate_pada = new Date();
+    await karya.save();
+
+    return res.status(200).json({
+      message: "Karya berhasil disetujui",
+      data: karya
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
+}
+
 
 };

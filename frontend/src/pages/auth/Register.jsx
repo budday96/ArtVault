@@ -39,6 +39,17 @@ export default function Register() {
           </div>
 
           <div className="mb-3">
+            <label>Username</label>
+            <input 
+              type="text"
+              className="form-control"
+              placeholder="Masukkan username"
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
+            />
+          </div>
+
+
+          <div className="mb-3">
             <label>Email</label>
             <input 
               type="email"

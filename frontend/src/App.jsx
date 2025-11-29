@@ -62,9 +62,7 @@ export default function App() {
           <Route path="/admin/karya" element={<AdminKarya />} />
           <Route path="/admin/user" element={<AdminUser />} />
           <Route path="/admin/verifikasi" element={<AdminVerifikasi />} />
-
           <Route path="/admin/kategori" element={<AdminKategori />} />
-
         </Route>
       </Routes>
     </BrowserRouter>
