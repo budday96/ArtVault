@@ -46,6 +46,11 @@ export default function Register() {
             <label className="auth-input-label">Nama Lengkap</label>
           </div>
 
+<<<<<<<<< Temporary merge branch 1
+          {/* EMAIL */}
+          <div className="auth-input-group">
+            <input
+=========
           <div className="mb-3">
             <label>Username</label>
             <input 
@@ -57,9 +62,10 @@ export default function Register() {
           </div>
 
 
-          {/* EMAIL */}
-          <div className="auth-input-group">
-            <input
+          <div className="mb-3">
+            <label>Email</label>
+            <input 
+>>>>>>>>> Temporary merge branch 2
               type="email"
               required
               className="auth-input-medusa"
