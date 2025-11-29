@@ -2,6 +2,7 @@ const router = require('express').Router();
 const AdminController = require('../controllers/AdminController');
 const auth = require('../middleware/auth');
 const adminOnly = require('../middleware/adminOnly');
+const User = require('../models/User');
 
 // ========== ADMIN KARYA ==========
 router.get('/karya', auth, adminOnly, AdminController.semuaKarya);
@@ -13,6 +14,12 @@ router.delete('/karya/hapus/:id_karya', auth, adminOnly, AdminController.hapusKa
 // ========== ADMIN USER ==========
 router.put('/user/ban/:id_user', auth, adminOnly, AdminController.banUser);
 router.put('/user/unban/:id_user', auth, adminOnly, AdminController.unbanUser);
+
+router.get('/users', auth, adminOnly, async (req, res) => {
+  const users = await User.findAll();
+  res.json(users);
+});
+
 
 // ========== ADMIN DASHBOARD ==========
 router.get('/dashboard', auth, adminOnly, AdminController.dashboard);

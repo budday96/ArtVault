@@ -8,5 +8,6 @@ router.post('/login', AuthController.login);
 
 // PRIVATE
 router.get('/profile', auth, AuthController.profile);
+router.put('/update', auth, AuthController.updateProfile);
 
 module.exports = router;

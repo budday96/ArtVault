@@ -52,7 +52,7 @@ export default function KaryaDetail() {
   const loadDetail = async () => {
     const res = await api.get(`/karya/${id}`);
     setKarya(res.data);
-    setFoto(res.data.foto_karya || []);
+    setFoto(res.data.FotoKaryas || []);
     setLiked(res.data.sudah_like);
     setJumlahLike(res.data.jumlah_like);
   };
@@ -89,7 +89,7 @@ export default function KaryaDetail() {
           foto.map((f) => (
             <div key={f.id_foto} className="col-md-3 col-6 mb-3">
               <img 
-                src={`http://localhost:5000/uploads/karya/${f.path_file}`}
+                src={`http://localhost:5000${f.path_file}`}
                 alt="karya"
                 className="img-fluid rounded shadow"
               />
@@ -122,7 +122,7 @@ export default function KaryaDetail() {
 
 
       {/* Placeholder: Komentar + Penawaran akan diisi di modul berikut */}
-      <div className="card p-3 mt-4 shadow-sm">
+      {/* <div className="card p-3 mt-4 shadow-sm">
         <h5>Komentar</h5>
         <p>Modul Komentar akan ditambahkan di tahap berikutnya.</p>
       </div>
@@ -130,7 +130,7 @@ export default function KaryaDetail() {
       <div className="card p-3 mt-4 shadow-sm">
         <h5>Penawaran (Bid)</h5>
         <p>Modul Bid akan ditambahkan di tahap berikutnya.</p>
-      </div>
+      </div> */}
 
       {/* KOMENTAR SECTION */}
       <div className="card p-3 mt-4 shadow-sm">
@@ -240,7 +240,7 @@ export default function KaryaDetail() {
                   <strong>Rp {Number(p.nilai_penawaran).toLocaleString()}</strong>
                   <br />
                   <small className="text-muted">
-                    oleh {p.user.nama_lengkap}
+                    oleh {p.User.nama_lengkap}
                   </small>
                 </span>
 

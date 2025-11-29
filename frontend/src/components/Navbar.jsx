@@ -41,15 +41,17 @@ export default function Navbar() {
           <ul className="navbar-nav me-auto">
             <li><Link className="nav-link" to="/">Explore</Link></li>
 
-            {token && (
+            {/* Kolektor Saja (role !== admin) */}
+            {token && role !== "admin" && (
               <li><Link className="nav-link" to="/karya">Karya Saya</Link></li>
             )}
 
             {role === "admin" && (
               <>
-                <li><Link className="nav-link" to="/admin">Admin Panel</Link></li>
-                <li><Link className="nav-link" to="/admin">Dashboard Admin</Link></li>
+                <li><Link className="nav-link" to="/admin/verifikasi">Verifikasi Karya</Link></li>
+                <li><Link className="nav-link" to="/admin/users">Manajemen User</Link></li>
                 <li><Link className="nav-link" to="/admin/kategori">Kategori Karya</Link></li>
+                <li><Link className="nav-link" to="/admin">Dashboard Admin</Link></li>
               </>
             )}
           </ul>
