@@ -7,6 +7,8 @@ router.post('/', auth, KaryaSeniController.create);
 
 // get all karya
 router.get('/', KaryaSeniController.getAll);
+ 
+router.get('/me', auth, KaryaSeniController.getMyKarya);
 
 // get detail karya
 router.get('/:id', KaryaSeniController.getById);

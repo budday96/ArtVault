@@ -11,6 +11,7 @@ import Explore from "./pages/explore/Explore.jsx";
 import KaryaList from "./pages/karya/KaryaList.jsx";
 import KaryaDetail from "./pages/karya/KaryaDetail.jsx";
 import KaryaCreate from "./pages/karya/KaryaCreate.jsx";
+import KaryaEdit from "./pages/karya/KaryaEdit.jsx";
 import KaryaUploadFoto from "./pages/karya/KaryaUploadFoto.jsx";
 
 // User
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="/notifikasi" element={<Notifikasi />} />
           <Route path="/karya" element={<KaryaList />} />
           <Route path="/karya/create" element={<KaryaCreate />} />
+          <Route path="/karya/edit/:id" element={<KaryaEdit />} />
           <Route path="/karya/upload/:id" element={<KaryaUploadFoto />} />
           <Route path="/karya/detail/:id" element={<KaryaDetail />} />
         </Route>

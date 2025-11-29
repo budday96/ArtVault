@@ -112,6 +112,26 @@ module.exports = {
     }
   },
 
+
+    // ============ GET MY KARYA (USER SENDIRI) ============
+  getMyKarya: async (req, res) => {
+    try {
+      const karya = await KaryaSeni.findAll({
+        where: { id_user: req.user.id_user },
+        include: [
+          { model: KategoriKarya, attributes: ['nama_kategori'] }
+        ],
+        order: [['dibuat_pada', 'DESC']]
+      });
+
+      return res.status(200).json(karya);
+
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  },
+
+
   // ============ UPDATE ============  
   update: async (req, res) => {
     try {

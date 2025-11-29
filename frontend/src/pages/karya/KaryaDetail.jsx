@@ -23,7 +23,7 @@ export default function KaryaDetail() {
 
   // Load komentar
   const loadKomentar = async () => {
-    const res = await api.get(`/komentar/karya/${id}`);
+    const res = await api.get(`/komentar/${id}`)
     setKomentar(res.data);
   };
 

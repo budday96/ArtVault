@@ -57,7 +57,7 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
       <div className="border rounded p-2 bg-light shadow-sm">
 
         {/* Nama */}
-        <strong>{data.user.nama_lengkap}</strong>
+        <strong>{data.User?.nama_lengkap || "Tidak ada nama"}</strong>
 
         {/* EDIT MODE */}
         {editMode ? (
@@ -139,7 +139,7 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
       )}
 
       {/* REPLIES */}
-      {data.balasan && data.balasan.map((balasan) => (
+      {data.balasan && data.replies.map((balasan) => (
         <KomentarItem 
           key={balasan.id_komentar}
           data={balasan}

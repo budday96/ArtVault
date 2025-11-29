@@ -43,8 +43,6 @@ app.use('/admin', require('./routes/admin.routes'));
 // NOTIFIKASI
 app.use('/notifikasi', require('./routes/notifikasi.routes'));
 
-
-
 sequelize.authenticate()
   .then(() => console.log("Database connected"))
   .catch(err => console.log("DB Error:", err));
