@@ -29,7 +29,7 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
   // ---------------- EDIT ----------------
   const submitEdit = async () => {
     try {
-      await api.put(`/komentar/${data.id_komentar}`, {
+      await api.put(`/komentar/edit/${data.id_komentar}`, {
         isi_komentar: text,
       });
 
@@ -45,7 +45,7 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
     if (!confirm("Hapus komentar ini?")) return;
 
     try {
-      await api.delete(`/komentar/${data.id_komentar}`);
+      await api.delete(`/komentar/delete/${data.id_komentar}`);
       loadKomentar();
     } catch (err) {
       alert("Tidak dapat menghapus komentar");
@@ -56,10 +56,8 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
     <div className="mt-3" style={{ marginLeft: depth * 25 }}>
       <div className="border rounded p-2 bg-light shadow-sm">
 
-        {/* Nama */}
         <strong>{data.User?.nama_lengkap || "Tidak ada nama"}</strong>
 
-        {/* EDIT MODE */}
         {editMode ? (
           <>
             <textarea
@@ -71,7 +69,8 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
             <button className="btn btn-sm btn-success mt-2" onClick={submitEdit}>
               Simpan
             </button>
-            <button className="btn btn-sm btn-secondary mt-2 ms-2"
+            <button
+              className="btn btn-sm btn-secondary mt-2 ms-2"
               onClick={() => setEditMode(false)}
             >
               Batal
@@ -84,7 +83,7 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
         {/* ACTION BUTTONS */}
         {!editMode && (
           <div className="d-flex gap-2">
-            <button 
+            <button
               className="btn btn-sm btn-outline-primary"
               onClick={() => {
                 setReplyMode(!replyMode);
@@ -96,14 +95,14 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
 
             {(data.id_user === id_user || role === "admin") && (
               <>
-                <button 
+                <button
                   className="btn btn-sm btn-outline-warning"
                   onClick={() => setEditMode(true)}
                 >
                   Edit
                 </button>
 
-                <button 
+                <button
                   className="btn btn-sm btn-outline-danger"
                   onClick={handleDelete}
                 >
@@ -129,7 +128,7 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
             Balas
           </button>
 
-          <button 
+          <button
             className="btn btn-sm btn-secondary mt-2 ms-2"
             onClick={() => setReplyMode(false)}
           >
@@ -139,8 +138,8 @@ export default function KomentarItem({ data, loadKomentar, depth = 0 }) {
       )}
 
       {/* REPLIES */}
-      {data.balasan && data.replies.map((balasan) => (
-        <KomentarItem 
+      {data.replies && data.replies.map((balasan) => (
+        <KomentarItem
           key={balasan.id_komentar}
           data={balasan}
           loadKomentar={loadKomentar}

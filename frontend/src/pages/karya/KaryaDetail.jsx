@@ -53,7 +53,7 @@ export default function KaryaDetail() {
   const loadDetail = async () => {
     const res = await api.get(`/karya/${id}`);
     setKarya(res.data);
-    setFoto(res.data.foto_karya || []);
+    setFoto(res.data.FotoKaryas || []);
     setLiked(res.data.sudah_like);
     setJumlahLike(res.data.jumlah_like);
   };

@@ -15,4 +15,3 @@ yarn-error.log*
 # Optional
 /dist
 /build
-/uploads
