@@ -209,7 +209,7 @@ export default function KaryaDetail() {
             <li key={p.id_penawaran} className="list-group-item bid-item d-flex justify-content-between">
               <span>
                 <strong>Rp {Number(p.nilai_penawaran).toLocaleString()}</strong><br />
-                <small className="text-muted">oleh {p.user.nama_lengkap}</small>
+                <small className="text-muted">oleh {p.User.nama_lengkap}</small>
               </span>
               <small className="text-muted">{new Date(p.dibuat_pada).toLocaleString()}</small>
             </li>
