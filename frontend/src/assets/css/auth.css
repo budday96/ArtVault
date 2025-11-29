@@ -1,0 +1,116 @@
+/* PAGE WRAPPER */
+.auth-page-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background: #ffffff;
+}
+
+/* BOX */
+.auth-box {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 36px 32px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* TITLE */
+.auth-title-medusa {
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* SUBTITLE */
+.auth-desc-medusa {
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+  margin-bottom: 26px;
+}
+
+/* FORM */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* FLOATING LABEL INPUT */
+.auth-input-group {
+  position: relative;
+}
+
+.auth-input-medusa {
+  width: 100%;
+  padding: 14px 14px 6px 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #d5d5d5;
+  background: #fafafa;
+  outline: none;
+  transition: 0.2s;
+}
+
+.auth-input-medusa:focus {
+  border-color: #000;
+  background: #fff;
+}
+
+.auth-input-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 14px;
+  color: #888;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+/* FLOAT UP WHEN TYPING OR FOCUSED */
+.auth-input-medusa:focus + .auth-input-label,
+.auth-input-medusa:not(:placeholder-shown) + .auth-input-label {
+  top: -6px;
+  left: 10px;
+  padding: 0 4px;
+  background: #fff;
+  font-size: 12px;
+  color: #333;
+}
+
+/* BUTTON */
+.auth-btn-medusa {
+  width: 100%;
+  padding: 12px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-top: 4px;
+  transition: 0.2s;
+}
+
+.auth-btn-medusa:hover {
+  background: #000;
+}
+
+/* FOOTER TEXT */
+.auth-bottom-text-medusa {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #444;
+}
+
+.auth-link-medusa {
+  color: #111;
+  font-weight: 600;
+  text-decoration: underline;
+}

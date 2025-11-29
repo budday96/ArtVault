@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../api/axiosConfig";
 import KomentarItem from "../../components/KomentarItem.jsx";
+import "../../assets/css/karyaDetail.css";
 
 export default function KaryaDetail() {
   const { id } = useParams();
@@ -79,181 +80,144 @@ export default function KaryaDetail() {
   if (!karya) return <p className="text-center mt-5">Memuat detail...</p>;
 
   return (
-    <div className="container mt-4">
-      <h3>{karya.judul_karya}</h3>
-      <p className="text-muted">{karya.kategori_karya?.nama_kategori}</p>
+  <div className="karya-detail-wrapper">
 
-      {/* Foto Gallery */}
-      <div className="row mt-4">
-        {foto.length > 0 ? (
-          foto.map((f) => (
-            <div key={f.id_foto} className="col-md-3 col-6 mb-3">
-              <img 
-                src={`http://localhost:5000/uploads/karya/${f.path_file}`}
-                alt="karya"
-                className="img-fluid rounded shadow"
-              />
-            </div>
-          ))
-        ) : (
-          <p>Belum ada foto diupload</p>
-        )}
-      </div>
-
-      {/* Informasi Karya */}
-      <div className="card p-3 shadow-sm mt-3">
-        <p><strong>Kondisi:</strong> {karya.kondisi}</p>
-        <p><strong>Kelangkaan:</strong> {karya.kelangkaan}</p>
-        <p><strong>Estimasi Harga:</strong> Rp {Number(karya.estimasi_harga).toLocaleString()}</p>
-        <p><strong>Skor Nilai:</strong> {karya.skor_nilai}</p>
-        <p><strong>Status:</strong> {karya.status_publikasi}</p>
-        <p className="mt-3"><strong>Deskripsi:</strong><br />{karya.deskripsi}</p>
-      </div>
-
-      {/* LIKE BUTTON */}
-        <div className="mt-3">
-            <button
-                className={`btn ${liked ? "btn-danger" : "btn-outline-danger"}`}
-                onClick={toggleLike}
-            >
-                {liked ? "❤️ Unlike" : "🤍 Like"} ({jumlahLike})
-            </button>
-        </div>
+    <h3 className="karya-detail-title">{karya.judul_karya}</h3>
+    <p className="karya-detail-category">{karya.kategori_karya?.nama_kategori}</p>
 
 
-      {/* Placeholder: Komentar + Penawaran akan diisi di modul berikut */}
-      <div className="card p-3 mt-4 shadow-sm">
-        <h5>Komentar</h5>
-        <p>Modul Komentar akan ditambahkan di tahap berikutnya.</p>
-      </div>
-
-      <div className="card p-3 mt-4 shadow-sm">
-        <h5>Penawaran (Bid)</h5>
-        <p>Modul Bid akan ditambahkan di tahap berikutnya.</p>
-      </div>
-
-      {/* KOMENTAR SECTION */}
-      <div className="card p-3 mt-4 shadow-sm">
-        <h5>Komentar ({komentar.length})</h5>
-
-        {/* form komentar utama */}
-        <textarea 
-          className="form-control mt-2"
-          rows="3"
-          placeholder="Tulis komentar..."
-          value={isiKomentar}
-          onChange={(e) => setIsiKomentar(e.target.value)}
-        />
-
-        <button 
-          className="btn btn-primary mt-2"
-          onClick={async () => {
-            try {
-              await api.post(`/komentar/${id}`, {
-                isi_komentar: isiKomentar
-              });
-              setIsiKomentar("");
-              loadKomentar();
-            } catch (err) {
-              alert("Gagal menambah komentar");
-            }
-          }}
-        >
-          Kirim Komentar
-        </button>
-
-        {/* LIST KOMENTAR */}
-        <div className="mt-4">
-          {komentar.length === 0 ? (
-            <p className="text-muted">Belum ada komentar</p>
-          ) : (
-            komentar.map((k) => (
-              <KomentarItem 
-                key={k.id_komentar}
-                data={k}
-                loadKomentar={loadKomentar}
-              />
-            ))
-          )}
-        </div>
-      </div>
-
-      {/* PENAWARAN SECTION */}
-      <div className="card p-3 mt-4 shadow-sm">
-        <h5>Penawaran Harga (Bid)</h5>
-
-        <p>
-          Penawaran tertinggi saat ini: 
-          <strong> Rp {Number(penawaranTertinggi).toLocaleString()}</strong>
-        </p>
-
-        {karya.id_user === id_user ? (
-          <p className="text-muted">
-            Anda adalah pemilik karya, sehingga tidak dapat memberikan penawaran.
-          </p>
-        ) : (
-          <>
-            <div className="input-group mt-3">
-              <span className="input-group-text">Rp</span>
-              <input 
-                type="number"
-                className="form-control"
-                placeholder="Masukkan nilai penawaran"
-                value={nilaiPenawaran}
-                onChange={(e) => setNilaiPenawaran(e.target.value)}
-              />
-              <button 
-                className="btn btn-success"
-                onClick={async () => {
-                  try {
-                    await api.post(`/penawaran/${id}`, {
-                      nilai_penawaran: Number(nilaiPenawaran)
-                    });
-
-                    setNilaiPenawaran("");
-                    loadPenawaran();
-                    loadDetail();
-
-                  } catch (err) {
-                    alert(err.response?.data?.message || "Penawaran gagal");
-                  }
-                }}
-              >
-                Ajukan
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* LIST PENAWARAN */}
-      <div className="card p-3 mt-4 shadow-sm">
-        <h5>Riwayat Penawaran</h5>
-
-        {penawaran.length === 0 ? (
-          <p className="text-muted">Belum ada penawaran</p>
-        ) : (
-          <ul className="list-group mt-3">
-            {penawaran.map((p, i) => (
-              <li key={p.id_penawaran} className="list-group-item d-flex justify-content-between">
-                <span>
-                  <strong>Rp {Number(p.nilai_penawaran).toLocaleString()}</strong>
-                  <br />
-                  <small className="text-muted">
-                    oleh {p.user.nama_lengkap}
-                  </small>
-                </span>
-
-                <span className="text-muted">
-                  {new Date(p.dibuat_pada).toLocaleString()}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-
+    {/* FOTO GALLERY */}
+    <div className="row karya-detail-gallery mt-3">
+      {foto.length > 0 ? (
+        foto.map((f) => (
+          <div key={f.id_foto} className="col-md-3 col-6 mb-3">
+            <img
+              src={`http://localhost:5000/uploads/karya/${f.path_file}`}
+              className="img-fluid shadow-sm"
+            />
+          </div>
+        ))
+      ) : (
+        <p>Belum ada foto.</p>
+      )}
     </div>
-  );
+
+    {/* INFO KARYA */}
+    <div className="karya-detail-card shadow-sm">
+      <p><span className="karya-detail-label">Kondisi:</span> {karya.kondisi}</p>
+      <p><span className="karya-detail-label">Kelangkaan:</span> {karya.kelangkaan}</p>
+      <p><span className="karya-detail-label">Estimasi Harga:</span> Rp {Number(karya.estimasi_harga).toLocaleString()}</p>
+      <p><span className="karya-detail-label">Skor Nilai:</span> {karya.skor_nilai}</p>
+      <p><span className="karya-detail-label">Status:</span> {karya.status_publikasi}</p>
+      <p className="mt-3"><span className="karya-detail-label">Deskripsi:</span><br />{karya.deskripsi}</p>
+    </div>
+
+    {/* LIKE BUTTON */}
+    <div className="mt-3">
+      <button className="btn-like-detail" onClick={toggleLike}>
+        {liked ? "❤️ Unlike" : "🤍 Like"} ({jumlahLike})
+      </button>
+    </div>
+
+    {/* KOMENTAR */}
+    <div className="karya-section-card shadow-sm">
+
+      <h5>Komentar ({komentar.length})</h5>
+
+      <textarea
+        className="form-control karya-comment-box mt-2"
+        rows="3"
+        placeholder="Tulis komentar..."
+        value={isiKomentar}
+        onChange={(e) => setIsiKomentar(e.target.value)}
+      />
+
+      <button
+        className="btn btn-shop mt-3"
+        onClick={async () => {
+          try {
+            await api.post(`/komentar/${id}`, { isi_komentar: isiKomentar });
+            setIsiKomentar("");
+            loadKomentar();
+          } catch {
+            alert("Gagal menambah komentar");
+          }
+        }}
+      >
+        Kirim Komentar
+      </button>
+
+      <div className="mt-4">
+        {komentar.length === 0 ? (
+          <p className="text-muted">Belum ada komentar</p>
+        ) : (
+          komentar.map((k) => (
+            <KomentarItem key={k.id_komentar} data={k} loadKomentar={loadKomentar} />
+          ))
+        )}
+      </div>
+    </div>
+
+    {/* PENAWARAN */}
+    <div className="karya-section-card shadow-sm">
+
+      <h5>Penawaran Harga</h5>
+
+      <p>Penawaran tertinggi: <strong>Rp {Number(penawaranTertinggi).toLocaleString()}</strong></p>
+
+      {karya.id_user === id_user ? (
+        <p className="text-muted">Anda pemilik karya — tidak dapat menawar.</p>
+      ) : (
+        <div className="input-group mt-3">
+          <span className="input-group-text">Rp</span>
+          <input
+            type="number"
+            className="form-control karya-bid-input"
+            value={nilaiPenawaran}
+            placeholder="Masukkan nilai"
+            onChange={(e) => setNilaiPenawaran(e.target.value)}
+          />
+          <button
+            className="btn btn-shop"
+            onClick={async () => {
+              try {
+                await api.post(`/penawaran/${id}`, {
+                  nilai_penawaran: Number(nilaiPenawaran)
+                });
+                setNilaiPenawaran("");
+                loadPenawaran();
+                loadDetail();
+              } catch (err) {
+                alert(err.response?.data?.message || "Penawaran gagal");
+              }
+            }}
+          >
+            Ajukan
+          </button>
+        </div>
+      )}
+    </div>
+
+    {/* RIWAYAT PENAWARAN */}
+    <div className="card p-3 mt-4 shadow-sm">
+      <h5>Riwayat Penawaran</h5>
+      {penawaran.length === 0 ? (
+        <p className="text-muted">Belum ada penawaran</p>
+      ) : (
+        <ul className="list-group mt-3">
+          {penawaran.map((p) => (
+            <li key={p.id_penawaran} className="list-group-item bid-item d-flex justify-content-between">
+              <span>
+                <strong>Rp {Number(p.nilai_penawaran).toLocaleString()}</strong><br />
+                <small className="text-muted">oleh {p.user.nama_lengkap}</small>
+              </span>
+              <small className="text-muted">{new Date(p.dibuat_pada).toLocaleString()}</small>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+  </div>
+);
 }
